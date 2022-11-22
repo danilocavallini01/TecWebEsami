@@ -13,7 +13,7 @@
 	<!-- Context attributes to be used throughout the application -->
 	<context-param>
 		<param-name>dir</param-name>
-		<param-value>C:\Users\fungu\eclipse-workspace\TW_Esercizio1_02072018\web\errors</param-value>
+		<param-value>/home/danilo/Documents/Tomcat/apache-tomcat-9.0.69/conf/</param-value>
 	</context-param>
 	
     <!-- Define servlets that are included in the application -->
