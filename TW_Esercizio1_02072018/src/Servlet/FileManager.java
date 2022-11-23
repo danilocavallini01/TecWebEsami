@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import Beans.BeanCounter;
 import Beans.Result;
 
-public class FileManager extends HttpServlet
+public class FileManager extends HttpServlet    
 {
     private Gson gson;
     private File dir;

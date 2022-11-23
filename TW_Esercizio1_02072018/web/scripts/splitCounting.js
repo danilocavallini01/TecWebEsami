@@ -14,7 +14,7 @@ function addFile(elem) {
 
 function sendFiles() {
 	var argument = "file1="+files[0]+"&file2="+files[1]+"&file3="+files[2];
-
+	
 	fetch("./FileManager", {
 		method: "POST",
 		headers: {
