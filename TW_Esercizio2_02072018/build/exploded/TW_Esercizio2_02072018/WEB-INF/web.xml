@@ -26,7 +26,7 @@
 	<!-- pleonastico: tomcat "tenta" in automatico le index.html e index.jsp -->
 	
 	<welcome-file-list>
-		<welcome-file>home.html</welcome-file>
+		<welcome-file>Integral</welcome-file>
 	</welcome-file-list>
 		
 	<!-- Handle exceptions and errors -->
