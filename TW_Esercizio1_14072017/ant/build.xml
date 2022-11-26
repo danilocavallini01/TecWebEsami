@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="TW_Esercizio2_02072018" basedir=".." default="02.print.properties">
+<project name="TW_Esercizio1_014072017" basedir=".." default="02.print.properties">
 
 	<!-- ================ -->
 	<!-- Properties setup -->
