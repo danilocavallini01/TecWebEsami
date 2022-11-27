@@ -30,7 +30,7 @@
   if ( session.getAttribute("currentUser") != null ) {
     User user = (User)session.getAttribute("currentUser");
     int success = user.getSuccess();
-    System.out.println(success);
+    
     if (success == 1) {
       %>
         <p>il tuo ordine e' stato completato, aspetta gli altri</p>
@@ -51,6 +51,7 @@
         <p>il tuo ordine e' stato rimosso dall'admin</p>
       <%
     }
+    
     user.setSuccess(0);
     session.invalidate();
   }
