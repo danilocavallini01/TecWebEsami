@@ -30,25 +30,23 @@ public class Finalize extends HttpServlet {
         String concludi = request.getParameter("concludi");
 
         HttpSession session = request.getSession(false);
-
+        
         if ( session == null || concludi == null ) {
             this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
-        if ( session.getAttribute("success") != null ) {
-            this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-
         User user = (User)session.getAttribute("currentUser");
         Group group = (Group)session.getAttribute("group");
-        
+
+        if ( user.getSuccess() != 0 ) {
+            this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+
         user.setWantToBuy(true);
 
         for ( User gUser : group.getUsers() ) {
             if ( !gUser.isWantToBuy() ) {
-                session.setAttribute("success", 1);
-                session.setAttribute("group", group);
+                user.setSuccess(1);
                 this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
                 return;
             }
@@ -56,13 +54,11 @@ public class Finalize extends HttpServlet {
         
         group.setCart(new Cart());
         
-       
-        user.setSession(session);
         for ( User gUser : group.getUsers() ) {
             gUser.setWantToBuy(false);
+            gUser.setSuccess(2);
         }
-        session.setAttribute("success", 2);
-        session.setAttribute("group", group);
+
         this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }
 }

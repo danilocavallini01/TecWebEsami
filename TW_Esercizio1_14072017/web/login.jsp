@@ -1,4 +1,8 @@
+<%@ page errorPage="../errors/failure.jsp"%>
+
 <%@ page session="true"%>
+
+<%@ page import="Beans.User"%>
 
 <html>
 <head>
@@ -23,9 +27,10 @@
   
   <input type="submit" value="Login"/>
   <% 
-  if ( session.getAttribute("success") != null ) {
-    int success = (int)session.getAttribute("success");
-    System.out.println(success);
+  if ( session.getAttribute("currentUser") != null ) {
+    User user = (User)session.getAttribute("currentUser");
+    int success = user.getSuccess();
+    
     if (success == 1) {
       %>
         <p>il tuo ordine e' stato completato, aspetta gli altri</p>
@@ -46,6 +51,8 @@
         <p>il tuo ordine e' stato rimosso dall'admin</p>
       <%
     }
+    
+    user.setSuccess(0);
     session.invalidate();
   }
   %>

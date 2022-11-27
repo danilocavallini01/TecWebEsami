@@ -81,7 +81,9 @@ public class Login extends HttpServlet {
             return;
         }
 
+        user.setSuccess(0);
         session.setAttribute("currentUser", user);
+
         if ( username.equals("admin") && user.getPassword().equals(password) ) {
             
             this.getServletContext().getRequestDispatcher("/admin.jsp").forward(request, response);
@@ -91,11 +93,8 @@ public class Login extends HttpServlet {
             Map<Integer, Group> groups = (Map<Integer, Group>)this.getServletContext().getAttribute("groups");
            
             Group group = groups.get(user.getGroupId());
-
             session.setAttribute("group", group);
-            
-            user.setSession(session);
-            System.out.println(session.getId());
+
             this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
 

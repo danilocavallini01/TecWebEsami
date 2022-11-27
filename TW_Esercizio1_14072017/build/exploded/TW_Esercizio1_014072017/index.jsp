@@ -1,3 +1,5 @@
+<%@ page errorPage="../errors/failure.jsp"%>
+
 <%@ page session="true"%>
 
 <%@ page import="Beans.Cart"%>
@@ -7,9 +9,8 @@
 <%@ page import="Beans.Catalogue"%>
 <%@ page import="java.util.*"%>
 
-<%
-  
-%>
+<jsp:useBean id="catalogue" class="Beans.Catalogue" scope="application" />
+
 <html>
 <head>
   <title>Catalogo Biglietti</title>
@@ -22,8 +23,12 @@
 <%
 
   Group group = (Group)session.getAttribute("group");
-  Catalogue catalogue = (Catalogue)application.getAttribute("catalogue");
   User user = (User)session.getAttribute("currentUser");
+  
+  if ( user.getSuccess() != 0 ) {
+      this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+  }
+
   Cart cart = group.getCart();
 
   if ( request.getParameter("add") != null) {
@@ -52,12 +57,13 @@
       <tr>
         <form method="POST" action="./index.jsp">
           <td>
-            <input name="id" value=<%=ticket.getId()%>> </input>
+            <%=ticket.getId()%>
           </td>
           <td>
             <%=ticket.getPrezzo()%>&euro;
           </td>
           <td class="add-button">
+            <input type="hidden" name="id" value=<%=ticket.getId()%>>
             <input type="submit" name="add" value="+" />
           </td>
         </form>
@@ -79,9 +85,10 @@
       <tr>
         <form method="POST" action="./index.jsp">
           <td>
-            <input name="id" value=<%=ticket.getId()%>></input>
+            <%=ticket.getId()%>
           </td>
           <td>
+            <input type="hidden" name="id" value=<%=ticket.getId()%>></input>
             <%=ticket.getPrezzo()%>&euro;
           </td>
         </form>
@@ -89,13 +96,6 @@
     <% } %>
   </table>
   <% } %>
-  <%
-    if ( user.isWantToBuy() ) {
-  %>
-    <p> hai richiesto l'acquisto del biglietto</p>
-  <% 
-    } 
-  %>
   <form method="POST" action="./Finalize">
     <input type="submit" name="concludi" value="concludi"></input>
   </form>

@@ -1,4 +1,4 @@
-<%@ page session="true"%>
+<%@ page errorPage="../errors/failure.jsp"%>
 
 <%@ page session="true"%>
 
@@ -6,14 +6,13 @@
 <%@ page import="Beans.User"%>
 <%@ page import="Beans.Ticket"%>
 <%@ page import="Beans.Group"%>
-<%@ page import="Beans.Catalogue"%>
 <%@ page import="java.util.*"%>
+
 
 <html>
 <head>
   <title>Admin  </title>
-  <link type="text/css" href="styles/default.css" rel="stylesheet">
-  </link>
+  <link type="text/css" href="styles/default.css" rel="stylesheet" />
   <script type="text/javascript" src="scripts/utils.js"></script>
   <script type="text/javascript" src="scripts/script.js"></script>
 </head>
@@ -42,12 +41,18 @@
         Integer gid = Integer.valueOf(request.getParameter("id"));
         Group target = groups.get(gid);
         for ( User user : target.getUsers() ) {
-          HttpSession sessionUser = user.getSession();
-          if ( sessionUser != null ) {
-            System.out.println(sessionUser.getId());
-            session.setAttribute("success",4);
-          }
+          user.setSuccess(4);
         }
+        target.setCart(new Cart());
+      }
+
+       if ( request.getParameter("complete") != null) {
+        Integer gid = Integer.valueOf(request.getParameter("id"));
+        Group target = groups.get(gid);
+        for ( User user : target.getUsers() ) {
+          user.setSuccess(3);
+        }
+        target.setCart(new Cart());
       }
       
       for (Group group : groups.values()) {

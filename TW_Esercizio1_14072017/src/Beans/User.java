@@ -8,6 +8,7 @@ public class User {
     private int groupId;
     private HttpSession session;
     private boolean wantToBuy;
+    private int success = 0;
     
     public User(String username, String password, int groupId) {
         this.username = username;
@@ -15,6 +16,7 @@ public class User {
         this.session = null;
         this.wantToBuy = false;
         this.groupId = groupId;
+        this.success = 0;
     }
 
     public User(String username, String password) {
@@ -23,6 +25,15 @@ public class User {
         this.session = null;
         this.wantToBuy = false;
         this.groupId = -1;
+        this.success = 0;
+    }
+
+    public int getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(int success) {
+        this.success = success;
     }
 
     public String getUsername() {
