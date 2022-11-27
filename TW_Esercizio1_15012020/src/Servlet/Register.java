@@ -45,11 +45,25 @@ public class Register extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Integer groupId = Integer.parseInt(request.getParameter("group"));
-
         HttpSession session = request.getSession();
+        Integer groupId = -1;
+        try {
+            groupId = Integer.parseInt(request.getParameter("group"));
+        } catch (NumberFormatException e) {
+            session.setAttribute("error", "gruppo non esistente");
+            this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+        
+      
 
         Map<Integer, Group> groups = (Map<Integer, Group>)this.getServletContext().getAttribute("groups");
+        Map<String, User> users = (Map<String,User>)this.getServletContext().getAttribute("users");
+
+        if ( users.containsKey(username)) {
+            session.setAttribute("error", "nome gia' registrato");
+            this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+
         Group group = groups.get(groupId);
 
         if ( group == null) {
@@ -62,7 +76,6 @@ public class Register extends HttpServlet {
 
         group.addUser(newUser);
 
-        Map<String, User> users = (Map<String,User>)this.getServletContext().getAttribute("users");
         users.put(newUser.getUsername(),newUser);
         
         this.getServletContext().setAttribute("users", users);
