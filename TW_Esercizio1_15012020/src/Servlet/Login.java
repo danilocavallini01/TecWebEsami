@@ -94,7 +94,9 @@ public class Login extends HttpServlet {
                 session.removeAttribute("error");
                 this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
             } else {
-
+                users.remove(username);
+                
+                this.getServletContext().setAttribute("users", users);
                 session.setAttribute("error", "la psw e' scaduta reimpostarla");
                 this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
             }
