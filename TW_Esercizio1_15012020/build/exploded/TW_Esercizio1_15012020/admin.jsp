@@ -4,6 +4,8 @@
 
 <%@ page import="Beans.User"%>
 <%@ page import="Beans.Group"%>
+<%@ page import="Beans.GroupDb"%>
+<%@ page import="Beans.UserDb"%>
 <%@ page import="java.util.*"%>
 
 
@@ -19,7 +21,7 @@
   <h1> Admin </h1>
 
    <%
-      Map<Integer, Group> groups = (Map<Integer, Group>)this.getServletContext().getAttribute("groups");
+      GroupDb groups = (GroupDb)this.getServletContext().getAttribute("groups");
       for (Group group : groups.values()) {
     %>
     <h2>Gruppo: <%=group.getId()%></h2>

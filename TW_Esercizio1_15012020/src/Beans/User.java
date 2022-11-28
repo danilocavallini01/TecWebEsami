@@ -1,8 +1,9 @@
 package Beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private String username;
     private String password;
     private int groupId;
@@ -10,6 +11,8 @@ public class User {
     private Date lastModifyOnPsw;
     private boolean valid;
     private int tryiedPsw;
+    private boolean tooManyTryies;
+
 
     public User(String username, String password) {
         this.username = username;
@@ -18,6 +21,7 @@ public class User {
         this.valid = true;
         this.groupId = -1;
         this.tryiedPsw = 0;
+        this.tooManyTryies = false;
     }
 
 
@@ -73,6 +77,15 @@ public class User {
 
     public void setTryiedPsw(int tryiedPsw) {
         this.tryiedPsw = tryiedPsw;
+    }
+
+
+    public boolean isTooManyTryies() {
+        return tooManyTryies;
+    }
+
+    public void setTooManyTryies(boolean tooManyTryies) {
+        this.tooManyTryies = tooManyTryies;
     }
 
         

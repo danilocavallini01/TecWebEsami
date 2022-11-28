@@ -1,22 +1,23 @@
 package Beans;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Group {
-    private int id;
+public class Group implements Serializable {
+    private Integer id;
     private Set<User> users;
 
-    public Group(int id) {
+    public Group(Integer id) {
         this.id = id;
         this.users = new HashSet<User>();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

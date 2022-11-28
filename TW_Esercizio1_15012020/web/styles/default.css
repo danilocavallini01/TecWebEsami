@@ -13,6 +13,12 @@ h1 {
  text-align: center;
 }
 
+.error {
+	font-size: larger;
+	color: red;
+	text-transform: capitalize;
+}
+
 .center {
 	width: 60%;
     height: 100%;

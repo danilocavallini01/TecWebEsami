@@ -39,7 +39,7 @@
   <form class="center" method="POST" action="Login">
     <% if ( session.getAttribute("error") != null ) { 
     %>
-      <p><%=(String)session.getAttribute("error")%> </p>
+      <p class="error"><%=(String)session.getAttribute("error")%> </p>
     <% } %>
     <% if ( session.getAttribute("currentUser") != null ) { 
       User user = (User)session.getAttribute("currentUser");

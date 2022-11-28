@@ -1,7 +1,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -11,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hsqldb.Session;
-
 import com.google.gson.Gson;
 
 import Beans.Group;
+import Beans.GroupDb;
 import Beans.User;
+import Beans.UserDb;
 
 public class Register extends HttpServlet {
     private Gson gson;
@@ -26,20 +25,24 @@ public class Register extends HttpServlet {
         gson = new Gson();
 
         
-        Map<String, User> users = new HashMap<String, User>();
-        Map<Integer, Group> groups = new HashMap<Integer, Group>();
+        if (this.getServletContext().getAttribute("users") == null
+                || this.getServletContext().getAttribute("groups") == null) {
+            GroupDb groups = new GroupDb();
+            UserDb users = new UserDb();
 
-        Group group1 = new Group(1);
-        Group group2 = new Group(2);
-        
-        groups.put(group1.getId(),group1);
-        groups.put(group2.getId(),group2);
+            Group group1 = new Group(1);
+            Group group2 = new Group(2);
+            User admin = new User("admin", "admin");
 
-        User admin = new User("admin", "admin");
-        users.put(admin.getUsername(),admin);
+            groups.add(group1);
+            groups.add(group2);
 
-        this.getServletContext().setAttribute("users", users);
-        this.getServletContext().setAttribute("groups", groups);
+            users.add(admin);
+
+            this.getServletContext().setAttribute("users", users);
+            this.getServletContext().setAttribute("groups", groups);
+        }
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -47,6 +50,7 @@ public class Register extends HttpServlet {
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
         Integer groupId = -1;
+        
         try {
             groupId = Integer.parseInt(request.getParameter("group"));
         } catch (NumberFormatException e) {
@@ -56,12 +60,13 @@ public class Register extends HttpServlet {
         
       
 
-        Map<Integer, Group> groups = (Map<Integer, Group>)this.getServletContext().getAttribute("groups");
-        Map<String, User> users = (Map<String,User>)this.getServletContext().getAttribute("users");
+        GroupDb groups = (GroupDb)this.getServletContext().getAttribute("groups");
+        UserDb users = (UserDb)this.getServletContext().getAttribute("users");
 
         if ( users.containsKey(username)) {
             session.setAttribute("error", "nome gia' registrato");
             this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
         }
 
         Group group = groups.get(groupId);
@@ -69,6 +74,7 @@ public class Register extends HttpServlet {
         if ( group == null) {
             session.setAttribute("error", "gruppo non esistente");
             this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
         }
 
         User newUser = new User(username, password);
@@ -76,11 +82,12 @@ public class Register extends HttpServlet {
 
         group.addUser(newUser);
 
-        users.put(newUser.getUsername(),newUser);
+        users.add(newUser);
         
         this.getServletContext().setAttribute("users", users);
         this.getServletContext().setAttribute("groups", groups);
 
+        session.removeAttribute("error");
         this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }
 }
