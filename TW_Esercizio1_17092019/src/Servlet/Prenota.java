@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import Beans.Albergo;
-import Beans.Prenotazioni;
+import Beans.Prenotazione;
 
 public class Prenota extends HttpServlet {
     private Gson gson;
@@ -31,7 +31,7 @@ public class Prenota extends HttpServlet {
 
         if ( this.getServletContext().getAttribute("alberghi") == null ) {
             Map<Integer,Albergo> alberghi = new HashMap<Integer,Albergo>();
-            List<Prenotazioni> prenotazioni = new ArrayList<Prenotazioni>();
+            List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 
             try {
                 File file = new File("alberghi.txt");
@@ -72,14 +72,14 @@ public class Prenota extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         Map<Integer,Albergo> alberghi = (Map<Integer,Albergo>)this.getServletContext().getAttribute("alberghi");
-        List<Prenotazioni> prenotazioni = (List<Prenotazioni>)this.getServletContext().getAttribute("prenotazioni");
+        List<Prenotazione> prenotazioni = (List<Prenotazione>)this.getServletContext().getAttribute("prenotazioni");
 
-        Prenotazioni miaPrenotazione = (Prenotazioni)session.getAttribute("prenotazione");
+        Prenotazione miaPrenotazione = (Prenotazione)session.getAttribute("prenotazione");
 
         Albergo albergo = alberghi.get(id);
         Float percentuale = 0f;
 
-        for (Prenotazioni prenotazione : prenotazioni) {
+        for (Prenotazione prenotazione : prenotazioni) {
             if ( prenotazione.getId() == id && !prenotazione.isFinalized()) {
                 if (miaPrenotazione == null || !session.getId().equals(miaPrenotazione.getSession().getId()) ) {
                     if ( checkOut >= prenotazione.getCheckin() && checkOut <= prenotazione.getCheckout() ) {
@@ -101,7 +101,7 @@ public class Prenota extends HttpServlet {
         }
         
         if ( miaPrenotazione == null ) {
-            miaPrenotazione = new Prenotazioni(id, checkIn, checkOut, albergo.getPrezzoStatico() * percentuale, session);
+            miaPrenotazione = new Prenotazione(id, checkIn, checkOut, albergo.getPrezzoStatico() * percentuale, session);
             prenotazioni.add(miaPrenotazione);
         } else {
             miaPrenotazione.setPrice( albergo.getPrezzoStatico() * percentuale);

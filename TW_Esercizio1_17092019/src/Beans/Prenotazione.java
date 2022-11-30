@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpSession;
 
-public class Prenotazioni implements Serializable{
+public class Prenotazione implements Serializable{
     private int id;
     private int checkin;
     private int checkout;
@@ -12,7 +12,7 @@ public class Prenotazioni implements Serializable{
     private float price;
     private HttpSession session;
 
-    public Prenotazioni(int id, int checkin, int checkout, float price, HttpSession session) {
+    public Prenotazione(int id, int checkin, int checkout, float price, HttpSession session) {
         this.id = id;
         this.checkin = checkin;
         this.checkout = checkout;

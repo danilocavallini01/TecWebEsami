@@ -3,10 +3,10 @@
 <%@ page session="true"%>
 
 <%@ page import="java.util.*"%>
-<%@ page import="Beans.Prenotazioni"%>
+<%@ page import="Beans.Prenotazione"%>
 
 <%
-List<Prenotazioni> prenotazioni = (List<Prenotazioni>)application.getAttribute("prenotazioni");
+List<Prenotazione> prenotazioni = (List<Prenotazione>)application.getAttribute("prenotazioni");
 %>
 <html>
 <head>
@@ -25,7 +25,7 @@ List<Prenotazioni> prenotazioni = (List<Prenotazioni>)application.getAttribute("
       <th>check-out</th>
       <th>price</th>
     </tr>
-      <% for ( Prenotazioni pre : prenotazioni ) {
+      <% for ( Prenotazione pre : prenotazioni ) {
         if ( pre.isFinalized()) {
       %>
       <tr>

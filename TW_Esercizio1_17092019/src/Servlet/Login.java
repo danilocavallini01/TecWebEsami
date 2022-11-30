@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import Beans.Albergo;
-import Beans.Prenotazioni;
+import Beans.Prenotazione;
 
 public class Login extends HttpServlet {
     private Gson gson;
@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
 
         if ( this.getServletContext().getAttribute("alberghi") == null ) {
             List<Albergo> alberghi = new ArrayList<Albergo>();
-            List<Prenotazioni> prenotazioni = new ArrayList<Prenotazioni>();
+            List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(new File(config.getInitParameter("dir"))));

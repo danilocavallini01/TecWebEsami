@@ -3,11 +3,11 @@
 <%@ page session="true"%>
 
 <%@ page import="java.util.*"%>
-<%@ page import="Beans.Prenotazioni"%>
+<%@ page import="Beans.Prenotazione"%>
 <%@ page import="Beans.Albergo"%>
 
 <% if ( request.getParameter("finalizza") != null ) {
-    Prenotazioni miaPrenotazione = (Prenotazioni)session.getAttribute("prenotazione");
+    Prenotazione miaPrenotazione = (Prenotazione)session.getAttribute("prenotazione");
     miaPrenotazione.setFinalized(true);
     Map<Integer,Albergo> alberghi = (Map<Integer,Albergo>)application.getAttribute("alberghi");
     Albergo albergo = alberghi.get(miaPrenotazione.getId());
