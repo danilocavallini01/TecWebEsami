@@ -62,7 +62,6 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
 
         if (username.equals("admin") && password.equals("admin")) {
-
             this.getServletContext().getRequestDispatcher("/admin.jsp").forward(request, response);
             return;
         } else {

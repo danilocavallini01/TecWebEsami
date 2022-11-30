@@ -2,19 +2,23 @@ package Beans;
 
 import java.io.Serializable;
 
+import javax.servlet.http.HttpSession;
+
 public class Prenotazioni implements Serializable{
     private int id;
     private int checkin;
     private int checkout;
     private boolean isFinalized;
     private float price;
+    private HttpSession session;
 
-    public Prenotazioni(int id, int checkin, int checkout, float price) {
+    public Prenotazioni(int id, int checkin, int checkout, float price, HttpSession session) {
         this.id = id;
         this.checkin = checkin;
         this.checkout = checkout;
         this.price = price;
         this.isFinalized = false;
+        this.session = session;
     }
 
     public int getId() {
@@ -55,6 +59,14 @@ public class Prenotazioni implements Serializable{
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 
     
