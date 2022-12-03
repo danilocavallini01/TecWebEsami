@@ -1,0 +1,119 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    padding: 0 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+main img {
+    transition: width 0.5s linear;
+}
+
+main.multi img {
+    width: calc(33% - 4px);
+    margin: 2px;
+}
+
+main:not(.multi) img {
+    width: 100%;
+}
+
+bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+
+bar > div {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+bar div p {
+    margin: 0 0.5rem;
+    cursor: pointer;
+    padding: 20px;
+    margin: 0;
+}
+
+bar div img {
+    height: 50px;
+}
+
+bar div img.icon {
+    height: 20px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+
+.bck-black {
+    background-color: black;
+    color: white;
+}
+
+.bck-white {
+    background-color: white;
+    color: #555;
+}
+
+.select {
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent
+}
+.select:hover {
+    color: black !important;
+    border-bottom: 4px solid rgb(178, 178, 250);
+    border-top: 4px solid transparent
+}
+
+.selected {
+    color: black !important;
+    border-bottom: 4px solid blue !important;
+    border-top: 4px solid transparent
+}
+
+.explore {
+    font-weight: 300;
+}
+
+info {
+    position: absolute;
+    justify-content: start;
+    align-items: end;
+    display: flex;
+    color: white;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 10%, transparent);
+}
+
+info bar {
+    padding: 0 !important;
+    width: 100%;
+    margin: 10px 0;
+}
+
+info bar div {
+    width: 50% !important;
+}
+
+info bar div p, info bar div .icon {
+    padding: 0 5px !important;
+}
+
+info p {
+    margin: 0;
+    font-weight: 100;
+}
+
+info.hidden {
+    display: none !important;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js" ></script>
+</head>
+
+<body>
+    <bar class="bck-black">
+        <div>
+            <img src="./img/Logo.PNG">
+            <p>Explore</p>
+            <p>Create</p>
+        </div>
+        <div>
+            <p>Login</p>
+            <p>Sign Up</p>
+        </div>
+    </bar>
+    <bar class="bck-white">
+        <div>
+            <p class="select selected">Explore</p>
+            <p class="select">Trending</p>
+        </div>
+        <div class="select">
+            <p>More</p>
+            <img class="icon" src="./img/arrow-down-sign-to-navigate.png"> 
+        </div>
+    </bar>
+    <bar class="bck-white">
+        <div>
+            <h1 class="explore">Explore</h1>
+        </div>
+        <div>
+            <img class="icon select selected" onclick="changeView(true, this)" src="./img/mosaic.png">
+            <img class="icon select" onclick="changeView(false, this)" src="./img/square.png">
+        </div>
+    </bar>
+    <main class="multi">
+        <img src="./img/_89716241_thinkstockphotos-523060154.jpg" onmouseover="spawnInfos(this)" >
+        <img src="./img/hfpqyV7B-IMG-Dubai-UAE.jpg"  onmouseover="spawnInfos(this)"  >
+        <img src="./img/IMG-Academy-Featured.png"  onmouseover="spawnInfos(this)">
+        <img src="./img/IMG-Fieldhouse-10.jpg"  onmouseover="spawnInfos(this)">
+        <img src="./img/RandomVariable-a7051c4f4ce94dd6b44cdea1120a2eeb.jpg"  onmouseover="spawnInfos(this)"  >
+    </main>
+
+    <info class="hidden">
+        <bar>
+            <div>
+                <p>Ciao sono piero</p>
+            </div>
+            <div>
+
+                <img class="icon" src="./img/star.png">
+                <p>1.4k</p>
+                <img class="icon" src="./img/speech-bubble.png">
+                <p>136</p>
+            </div>
+        </bar>
+    </info>
+</body>
+
+</html>
