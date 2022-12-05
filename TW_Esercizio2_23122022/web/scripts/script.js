@@ -69,7 +69,6 @@ function checkResult(data) {
 			} else {
 				finalResult += results[i] + ","
 			}
-			console.log(finalResult)
 		}
 
 		matrixs = []
