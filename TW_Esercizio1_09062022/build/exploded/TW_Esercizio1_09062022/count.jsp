@@ -12,6 +12,7 @@
 
   for ( int i = 0; i < text.length(); i++ ) {
     c = Character.codePointAt(text, i);
+    System.out.println(c);
     if ( c >= 65 && c <= 90 ) {
       counter++;
     }

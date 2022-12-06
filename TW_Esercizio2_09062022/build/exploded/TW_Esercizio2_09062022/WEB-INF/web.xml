@@ -14,37 +14,14 @@
 	
     <!-- Define servlets that are included in the application -->
 	<servlet>
-        <servlet-name>RandomizeServlet</servlet-name>
-        <servlet-class>Servlet.RandomizeServlet</servlet-class>
+        <servlet-name>Anagram</servlet-name>
+        <servlet-class>Servlet.Anagram</servlet-class>
        
     </servlet>
     <servlet-mapping>
-        <servlet-name>RandomizeServlet</servlet-name>
-        <url-pattern>/RandomizeServlet</url-pattern>
+        <servlet-name>Anagram</servlet-name>
+        <url-pattern>/Anagram</url-pattern>
     </servlet-mapping>
-
-	<servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>Servlet.Login</servlet-class>
-   
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Wait</servlet-name>
-        <servlet-class>Servlet.WaitWaitWait</servlet-class>
-   
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Wait</servlet-name>
-        <url-pattern>/Wait</url-pattern>
-    </servlet-mapping>
-    
 	<!-- Welcome pages -->
 	<!-- pleonastico: tomcat "tenta" in automatico le index.html e index.jsp -->
 	

@@ -49,6 +49,5 @@ function checkResult(data) {
 		console.log(results)
 		var elem = document.querySelector("#result")
 		elem.innerHTML = "Risultato : " + results.join("<br>")
-		results = []
 	}
 }

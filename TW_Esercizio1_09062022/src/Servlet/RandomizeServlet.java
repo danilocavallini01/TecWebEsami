@@ -27,6 +27,7 @@ public class RandomizeServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         this.getServletContext().setAttribute("totalOperation", (int)this.getServletContext().getAttribute("totalOperation") + 1);
+        session.removeAttribute("result");
 
         if ( session.getAttribute("operation") == null ) {
             session.setAttribute("operation", 1);
@@ -37,7 +38,7 @@ public class RandomizeServlet extends HttpServlet {
 
         String text = gson.fromJson(request.getParameter("text"), String.class);
         String result = "";
-        int randomNumber = (int)(Math.random() * 60d % 10);
+        int randomNumber = (int)(Math.random() * 10) + 1;
 
         for ( int i = 0; i < text.length(); i++ ) {
             if ( i % randomNumber != 0) {
@@ -45,7 +46,7 @@ public class RandomizeServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("text", result);
+        session.setAttribute("text", result);
         this.getServletContext().getRequestDispatcher("/count.jsp").forward(request, response);
     }
 }
