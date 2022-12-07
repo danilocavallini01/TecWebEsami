@@ -26,6 +26,12 @@
     </label>
 
     <input type="submit" value="Login"/>
+
+    <% if ( session.getAttribute("success") != null ) { %>
+      <p> Il tuo acquisto e' stato completato</p>
+    <% }
+      session.removeAttribute("success");
+    %>
   </form>
 </div>
 </body>

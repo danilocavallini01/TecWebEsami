@@ -2,10 +2,11 @@
 var results = [];
 
 function checkInput() {
-	var campo = parseInt(document.querySelector("#campo"))
-	var giorno = parseInt(document.querySelector("#giorno"))
-	var orario = parseInt(document.querySelector("#orario"))
+	var campo = parseInt(document.querySelector("#campo").value)
+	var giorno = parseInt(document.querySelector("#giorno").value)
+	var orario = parseInt(document.querySelector("#orario").value)
 
+	console.log(campo,giorno,orario)
 	if ( campo >= 1 && campo <= 6 && giorno >= 1 && giorno <= 365 && orario >= 0 && orario <= 23) {
 		sendToServlet(campo,giorno,orario)
 	}
