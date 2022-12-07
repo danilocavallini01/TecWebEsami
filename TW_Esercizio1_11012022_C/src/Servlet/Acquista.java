@@ -103,7 +103,6 @@ public class Acquista extends HttpServlet {
             p.getUser1().getSession().setAttribute("success", true);
             session.setAttribute("success", true);
 
-            prenotazioni.remove(p);
             this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }

@@ -62,6 +62,7 @@
       </tr>
       <%
         for ( Prenotazione p : prenotazioni ) {
+        if ( p.getUser2() == null || p.getUser1() == null ) {
       %>
         <tr>
           <form method="POST" action="./Acquista">
@@ -83,7 +84,7 @@
           </form>
         </tr>
       <%
-        }
+        } }
       %>
     </table>
   </div>
