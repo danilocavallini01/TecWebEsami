@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserDb implements Serializable{
+public class UserDb{
     private Map<String, User> users;
 
     public UserDb() {

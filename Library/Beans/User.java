@@ -7,34 +7,22 @@ public class User {
     private String password;
     private int groupId;
     private HttpSession session;
-    private boolean wantToBuy;
-    private int success = 0;
-    
+
+
     public User(String username, String password, int groupId) {
         this.username = username;
         this.password = password;
         this.session = null;
-        this.wantToBuy = false;
         this.groupId = groupId;
-        this.success = 0;
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.session = null;
-        this.wantToBuy = false;
         this.groupId = -1;
-        this.success = 0;
     }
 
-    public int getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(int success) {
-        this.success = success;
-    }
 
     public String getUsername() {
         return username;
@@ -66,13 +54,5 @@ public class User {
 
     public void setSession(HttpSession session) {
         this.session = session;
-    }
-
-    public boolean isWantToBuy() {
-        return wantToBuy;
-    }
-
-    public void setWantToBuy(boolean wantToBuy) {
-        this.wantToBuy = wantToBuy;
     }
 }

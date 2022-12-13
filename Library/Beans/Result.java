@@ -1,45 +1,25 @@
 package Beans;
 
 public class Result {
-    private Long serverTime;
-    private Long beanTime;
-    private int serverCount;
-    private int beanCount;
+   private String result;
+   private int length;
 
-    public Long getServerTime() {
-        return serverTime;
+    public String getResult() {
+        return result;
     }
-    public void setServerTime(Long serverTime) {
-        this.serverTime = serverTime;
+    public void setResult(String result) {
+        this.result = result;
     }
-    public Long getBeanTime() {
-        return beanTime;
+    public int getLength() {
+        return length;
     }
-    public void setBeanTime(Long beanTime) {
-        this.beanTime = beanTime;
+    public void setLength(int length) {
+        this.length = length;
     }
-    public int getServerCount() {
-        return serverCount;
-    }
-    public void setServerCount(int serverCount) {
-        this.serverCount = serverCount;
-    }
-    public int getBeanCount() {
-        return beanCount;
-    }
-    public void setBeanCount(int beanCount) {
-        this.beanCount = beanCount;
+    public Result(String result) {
+        this.result = result;
+        this.length = result.length();
     }
 
-    @Override
-    public String toString() {
-        return "Result [serverTime=" + serverTime + ", beanTime=" + beanTime + ", serverCount=" + serverCount
-                + ", beanCount=" + beanCount + "]";
-    }
-    public Result() {
-        this.beanCount = 0;
-        this.serverCount = 0;
-        this.serverTime = 0l;
-        this.beanTime = 0l;
-    }
+    
 }
