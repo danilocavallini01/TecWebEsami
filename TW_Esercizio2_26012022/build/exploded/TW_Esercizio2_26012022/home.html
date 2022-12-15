@@ -1,0 +1,30 @@
+
+<html>
+    <head>
+        <title>Quadrato Magico</title>
+        <script type="text/javascript" src="scripts/wsocket.js"></script>
+        <link type="text/css" href="styles/default.css" rel="stylesheet"></link>
+    </head>
+    <body>
+    	<div class="center">
+            <div>
+            	<input row="1" col="1" type="text" onchange="update(this)" />
+            	<input row="1" col="2" type="text" onchange="update(this)" />
+            	<input row="1" col="3" type="text" onchange="update(this)" />
+            </div>
+            <div>
+            	<input row="2" col="1" type="text" onchange="update(this)" />
+            	<input row="2" col="2" type="text" onchange="update(this)" />
+            	<input row="2" col="3" type="text" onchange="update(this)" />
+            </div>
+            <div>
+            	<input row="3" col="1" type="text" onchange="update(this)" />
+            	<input row="3" col="2" type="text" onchange="update(this)" />
+            	<input row="3" col="3" type="text" onchange="update(this)" />
+            </div>
+            
+            <p id="result"></p>
+            <input id="send" type="button" onclick="checkMagicSquare()" value="Controlla"/>
+        </div>
+    </body>
+</html>
