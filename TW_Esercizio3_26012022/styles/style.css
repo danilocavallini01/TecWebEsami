@@ -1,12 +1,12 @@
 body{
   margin:0;
   padding:0;
-  font-family:sans-serif
+  font-family:sans-serif;
+  text-align: center;
 }
 
-.pista input {
-  width: 9vw;
-  margin: 0px;
-  text-align: center;
+.cover {
+  color:  transparent !important;
+  background-color: grey;
 }
  
