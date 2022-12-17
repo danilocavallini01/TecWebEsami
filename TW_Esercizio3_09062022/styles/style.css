@@ -1,0 +1,27 @@
+body{
+  margin:0;
+  padding:0;
+  font-family:sans-serif;
+  text-align: center;
+}
+
+.cover {
+  color:  transparent !important;
+  background-color: grey;
+}
+
+.ambo {
+  background-color: yellow;
+}
+
+.terno {
+  background-color: greenyellow;
+}
+
+.quaterna {
+  background-color: blue;
+}
+
+.cinquina {
+  background-color: red;
+}
