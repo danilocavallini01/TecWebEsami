@@ -57,7 +57,7 @@ public class ModArticolo extends HttpServlet {
                 session.setAttribute("articolo", found);
             }
         } else if ( request.getParameter("write") != null) {
-            found = (Articolo) session.getAttribute("articolo");
+            found = (Articolo)session.getAttribute("articolo");
 
             if ( !found.getSessionId().equals(session.getId()) ) {
                 session.removeAttribute("articolo");
@@ -74,7 +74,7 @@ public class ModArticolo extends HttpServlet {
                     return;
                 }
 
-                found.setSessionId(session.getId());
+                found.setSessionId(null);
                         
                 this.getServletContext().getRequestDispatcher("/admin.jsp").forward(request, response);
                 return;

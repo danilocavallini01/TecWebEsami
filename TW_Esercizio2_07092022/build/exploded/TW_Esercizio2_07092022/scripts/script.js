@@ -50,7 +50,7 @@ function checkResult(data, surname) {
 	}
 }
 
-function setStatistiche(tennista) {
+function setStatistiche(tennista, surname) {
 	var elem = document.querySelector("#result")
 	elem.innerHTML = tennista.surname + " -> rankingATP: " + tennista.rankingATP + " titoli: " + tennista.titols + " vinte: " + tennista.wins + " perse: " + tennista.lose
 }
