@@ -1,0 +1,32 @@
+body{
+  margin:0;
+  padding:0;
+  font-family:sans-serif;
+  text-align: center;
+}
+
+.flex-row {
+  flex-wrap: nowrap;
+  display: flex;
+  justify-content: center;
+}
+
+.flex-row * {
+  min-width: 50px;
+  width: 50px;
+}
+
+.empty-cell {
+  background-color: yellow;
+}
+
+.treasure-cell {
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
+
+.cover {
+  color: transparent !important;
+  background-color: #222;
+}
