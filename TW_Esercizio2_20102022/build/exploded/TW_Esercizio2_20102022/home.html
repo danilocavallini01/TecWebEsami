@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>Cifra parola</title>
+  <link type="text/css" href="styles/default.css" rel="stylesheet">
+  </link>
+  <script type="text/javascript" src="scripts/script.js"></script>
+</head>
+<body>
+<div class="center">
+  <h1> Cifra parola </h1>
+  
+  <label id="text" for="char">
+    Inserire Parola
+    <input id="char" type="text" onchange="sendChar(this)"></input>
+  </label>
+  <input id="winner" name="winner" type="button" onclick="win()" value="Trasmetti Vincente"></input>
+  
+  <br>
+  <br>
+
+  <p id="result"></p>
+  
+</div>
+
+</body>
+</html>
