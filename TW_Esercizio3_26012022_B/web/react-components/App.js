@@ -10,6 +10,7 @@ class App extends React.Component {
       playerSymbol: "",
       win: false,
       whoWin: "",
+      turn: "",
       ws: new WebSocket("ws://localhost:8080/TW_Esercizio3_26012022_B/actions"),
     }
 
@@ -20,23 +21,27 @@ class App extends React.Component {
 
   handleWsMessage(event) {
     var message = JSON.parse(event.data);
-    if ( message.gameStarted) {
+    if ( message.responseType == "map_response") {
       if ( this.state.gameStarted ) {
         this.setState({
-          field: message.map
+          field: message.map,
+          turn: message.playerTurn
         })
       } else {
-        this.loadMap(message.map, message.playerSymbol)
+        this.loadMap(message.map, message.playerSymbol, message.playerTurn)
       }
-    } else if ( message.win ) {
-      this.setState({
-        win: true,
-        whoWin: message.whoWin
-      })
+    } else if ( message.responseType == "win_response" ) {
+      if ( message.win ) {
+        this.setState({
+          win: true,
+          whoWin: message.whoWin,
+          turn: null,
+        })
+      }
     }
   }
 
-  loadMap(map, playerSymbol) {
+  loadMap(map, playerSymbol, playerTurn) {
     let field = []
 
     for ( let i = 0; i < 3 ; i++) {
@@ -51,7 +56,8 @@ class App extends React.Component {
     this.setState({
       gameStarted: true,
       field: field,
-      playerSymbol: playerSymbol
+      turn: playerTurn,
+      playerSymbol: playerSymbol,
     })
   }
 
@@ -77,6 +83,12 @@ class App extends React.Component {
     return (
       <div className="container">
         <h1>Tris</h1>
+        { this.state.turn &&
+          <div>
+            <p> Il tuo simbolo e: {this.state.playerSymbol}</p>
+            <p> e' il turno di {this.state.turn}</p>
+          </div>
+        }
         { this.state.gameStarted ?
           <Mappa field={this.state.field} onSet={this.cellSet} />
           :

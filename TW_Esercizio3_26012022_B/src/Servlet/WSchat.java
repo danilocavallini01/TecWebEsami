@@ -1,6 +1,9 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -9,20 +12,21 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.google.gson.Gson;
+
+import Beans.MapResponse;
 import Beans.Request;
 import Beans.Response;
-
-import com.google.gson.Gson;
+import Beans.WinResponse;
 
 @ServerEndpoint("/actions")
 public class WSchat {
 
 	private Gson gson;
 	private static String[][] field;
-	private static int users = 0;
+
 	private String playerSymbol;
-	private static String player1;
-	private static String player2;
+	private static Set<String> players;
 	private static boolean isTurnPlayer1 = true;
 
 	public WSchat() {
@@ -30,14 +34,17 @@ public class WSchat {
 		if (field == null) {
 			field = new String[3][3];
 		}
+		if (players == null) {
+			players = new CopyOnWriteArraySet<String>();
+		}
 	}
 
 	@OnOpen
 	public void onOpen(Session session) {
 		try {
-			if (users == 1) {
-				player2 = session.getId();
-				users++;
+			if (players.size() == 1) {
+				players.add(session.getId());
+
 				this.playerSymbol = "O";
 
 				for (int i = 0; i < 3; i++) {
@@ -46,18 +53,19 @@ public class WSchat {
 					}
 				}
 
-				for (Session sess : session.getOpenSessions()) {
-					if (sess.isOpen()) {
-						sess.getBasicRemote().sendText(gson.toJson(new Response(true, field, null)));
-					}
-				}
+				broadcast(session, new MapResponse(true, field, "X", "X"));
+				send(session, new MapResponse(true, field, "O", "X"));
 
-				session.getBasicRemote().sendText(gson.toJson(new Response(true, field, this.playerSymbol)));
-			} else if (users == 0) {
-				player1 = session.getId();
-				users++;
+			} else if (players.size() == 0) {
+
+				players.add(session.getId());
+
 				this.playerSymbol = "X";
-				session.getBasicRemote().sendText(gson.toJson(new Response(false, null, this.playerSymbol)));
+
+				send(session, new MapResponse(false, null, this.playerSymbol, "X"));
+
+			} else if (players.size() >= 2) {
+				session.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,12 +74,14 @@ public class WSchat {
 
 	@OnMessage
 	public void textMessage(Session session, String msg) {
+		String [] player = players.toArray(new String[2]);
+
 		if (isTurnPlayer1) {
-			if (!session.getId().equals(player1)) {
+			if (!session.getId().equals(player[0])) {
 				return;
 			}
 		} else {
-			if (!session.getId().equals(player2)) {
+			if (!session.getId().equals(player[1])) {
 				return;
 			}
 		}
@@ -84,23 +94,11 @@ public class WSchat {
 
 		try {
 			if (whoWin != null) {
-				// win case
-				for (Session sess : session.getOpenSessions()) {
-					if (sess.isOpen()) {
-						sess.getBasicRemote().sendText(gson.toJson(new Response(false, field, true, whoWin)));
-					}
-				}
+				broadcast(session, new WinResponse(true, whoWin));
 			} else {
-				// game ongoing case
-				for (Session sess : session.getOpenSessions()) {
-					if (sess.isOpen()) {
-						sess.getBasicRemote().sendText(gson.toJson(new Response(true, field, null)));
-					}
-				}
 				isTurnPlayer1 = !isTurnPlayer1;
+				broadcast(session, new MapResponse(field, isTurnPlayer1 ? "X" : "O"));
 			}
-
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -109,7 +107,7 @@ public class WSchat {
 
 	@OnClose
 	public void onClose(Session session) {
-		//
+		players.remove(session.getId());
 	}
 
 	@OnError
@@ -117,62 +115,71 @@ public class WSchat {
 		//
 	}
 
+	public void broadcast(Session session, Response Response) throws IOException {
+		for (Session sess : session.getOpenSessions()) {
+			if (sess.isOpen()) {
+				sess.getBasicRemote().sendText(gson.toJson(Response));
+			}
+		}
+	}
+
+	public void send(Session session, Response response) throws IOException {
+		session.getBasicRemote().sendText(gson.toJson(response));
+	}
 
 	private String checkWin() {
-		
-		for ( int i = 0; i < 3; i++ ) {
+
+		for (int i = 0; i < 3; i++) {
 			int symbolCount1 = 0;
 			int symbolCount2 = 0;
 
-			for ( int j = 0; j < 3; j++ ) {
-				if ( field[i][j].equals("X") ) {
+			for (int j = 0; j < 3; j++) {
+				if (field[i][j].equals("X")) {
 					symbolCount1++;
-				} else if (field[i][j].equals("O") ) {
+				} else if (field[i][j].equals("O")) {
 					symbolCount2++;
 				}
 			}
 
-			
-			if ( symbolCount1 == 3) {
+			if (symbolCount1 == 3) {
 				return "player 1";
-			} else if ( symbolCount2 == 3) {
+			} else if (symbolCount2 == 3) {
 				return "player 1";
 			}
 		}
 
-		for ( int i = 0; i < 3; i++ ) {
+		for (int i = 0; i < 3; i++) {
 			int symbolCount1 = 0;
 			int symbolCount2 = 0;
 
-			for ( int j = 0; j < 3; j++ ) {
-				if ( field[j][i].equals("X") ) {
+			for (int j = 0; j < 3; j++) {
+				if (field[j][i].equals("X")) {
 					symbolCount1++;
-				} else if (field[j][i].equals("O") ) {
+				} else if (field[j][i].equals("O")) {
 					symbolCount2++;
 				}
 			}
 
-			if ( symbolCount1 == 3) {
+			if (symbolCount1 == 3) {
 				return "player 1";
-			} else if ( symbolCount2 == 3) {
+			} else if (symbolCount2 == 3) {
 				return "player 2";
 			}
 		}
 
-		if ( field[0][0].equals("X") &&  field[1][1].equals("X") && field[2][2].equals("X")) {
+		if (field[0][0].equals("X") && field[1][1].equals("X") && field[2][2].equals("X")) {
 			return "player 1";
 		}
 
-		
-		if ( field[2][0].equals("X") &&  field[1][1].equals("X") && field[0][2].equals("X")) {
+		if (field[2][0].equals("X") && field[1][1].equals("X") && field[0][2].equals("X")) {
 			return "player 1";
 		}
 
-		if ( field[0][0].equals("O") &&  field[1][1].equals("O") && field[2][2].equals("O")) {
+		if (field[0][0].equals("O") && field[1][1].equals("O") && field[2][2].equals("O")) {
 			return "player 2";
 		}
 
-		if ( field[2][0].equals("O") &&  field[1][1].equals("O") && field[0][2].equals("O")) {
+		if (field[2][0].equals("O") && field[1][1].equals("O") && field[0][2].equals("O")) {
 			return "player 2";
 		}
 		return null;
